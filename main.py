@@ -209,7 +209,8 @@ while counter!=0:
             check+=1
         counter-=1
     content_puma2=content_puma2[content_puma2.find('" data-price-type=')+18:]
-#Ламода
+
+#ЛАМОДА
 lamoda_prod = []
 lamoda_html = []
 lamoda_old_price = []
@@ -220,39 +221,40 @@ soup_lamoda = BeautifulSoup(html_lamoda, 'html.parser')
 content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
 counter=10
 while counter!=0:
-    if content_lamoda1[content_lamoda1.find(',"price":"'):content_lamoda1.find('"}]')]!='':
-        price=content_lamoda1[content_lamoda1.find(',"price":"'):content_lamoda1.find('"}]')]
-        lamoda_new_price.append(price[price.find(':"')+2:])
+    if content_lamoda1[content_lamoda1.find('data-price-origin="'):content_lamoda1.find('data-season=')]!='':
+        price=content_lamoda1[content_lamoda1.find('data-price-origin="')+len('data-price-origin="'):content_lamoda1.find('data-season=')].replace('" ','')
+        lamoda_old_price.append(price)
         counter-=1
-    content_lamoda1=content_lamoda1[content_lamoda1.find('"}]')+3:]
+    content_lamoda1=content_lamoda1[content_lamoda1.find('data-season=')+len('data-season='):]
 counter=10
 content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
 while counter!=0:
-    if content_lamoda1[content_lamoda1.find('data-price-origin="'):content_lamoda1.find('" data-season=')]!='':
-        price=content_lamoda1[content_lamoda1.find('data-price-origin="'):content_lamoda1.find('" data-season=')]
-        lamoda_old_price.append(price[price.find('="')+2:])
+    if content_lamoda1[content_lamoda1.find('data-name="')+len('data-name="'):content_lamoda1.find('data-price-origin=')]!='':
+        price=content_lamoda1[content_lamoda1.find('data-name="')+len('data-name="'):content_lamoda1.find('data-price-origin=')]
+        price=price[price.find('data-price="')+len('data-price="'):]
+        lamoda_new_price.append(price.replace('"',''))
         counter-=1
-    content_lamoda1=content_lamoda1[content_lamoda1.find('" data-season=')+len('" data-season='):]
+    content_lamoda1=content_lamoda1[content_lamoda1.find('data-price-origin=')+len('data-price-origin='):]
 counter=10
 content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
 while counter!=0:
-    if content_lamoda1[content_lamoda1.find('href="'):content_lamoda1.find('/">')+1]!='':
-        price=content_lamoda1[content_lamoda1.find('href="'):content_lamoda1.find('/">')+1]
-        lamoda_html.append('https://www.lamoda.ru/'+price[7:])
+    if content_lamoda1[content_lamoda1.find('href="')+len('href="'):content_lamoda1.find('<div class="to-favorites')]!='':
+        html=content_lamoda1[content_lamoda1.find('href="')+len('href="'):content_lamoda1.find('<div class="to-favorites')]
+        lamoda_html.append('https://www.lamoda.ru'+html.replace('">\n',''))
         counter-=1
-    content_lamoda1=content_lamoda1[content_lamoda1.find('/">')+len('/">'):]
+    content_lamoda1=content_lamoda1[content_lamoda1.find('<div class="to-favorites')+len('<div class="to-favorites'):]
 counter=10
 content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
 while counter!=0:
-    if content_lamoda1[content_lamoda1.find('products-list-item__brand">'):content_lamoda1.find('</span></div></a>')]!='':
-        price=content_lamoda1[content_lamoda1.find('products-list-item__brand">'):content_lamoda1.find('</span></div></a>')]
-        price=price.replace('\n','')
-        price = price.replace('\t', '')
-        price = price.replace(' ', '',16)
-        price=(price[price.find('d">')+len('d">'):price.find('<span')]+'/'+price[price.find('e">') + len('e">'):]).replace(' ','',35)
-        lamoda_prod.append(price)
+    if content_lamoda1[content_lamoda1.find('products-list-item__brand">')+len('products-list-item__brand">'):content_lamoda1.find('</span></div></a><div class="groups-by-sku groups-by-sku_hidden">')]!='':
+        price=content_lamoda1[content_lamoda1.find('products-list-item__brand">')+len('products-list-item__brand">'):content_lamoda1.find('</span></div></a><div class="groups-by-sku groups-by-sku_hidden">')]
+        price1=price[:price.find('<sp')].replace(' ','').replace('\n','').replace('\t','')
+        price2=price[price.find('">')+2:].replace('\n','').replace('\t','')
+        price2=price2[:price2.find('</span></div>')].replace(' ','',20)
+        lamoda_prod.append(price1+' '+price2)
         counter-=1
-    content_lamoda1=content_lamoda1[content_lamoda1.find('</span></div></a>')+len('</span></div></a>'):]
+    content_lamoda1=content_lamoda1[content_lamoda1.find('</span></div></a><div class="')+len('</span></div></a><div class="'):]
+
 #Электроника
 #restore
 restore_prod = []
@@ -288,12 +290,6 @@ while counter!=0:
         counter-=1
     content_restore1=content_restore1[content_restore1.find('</span>\n</div>')+len('</span>\n</div>'):]
 content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
-
-
-
-
-#re:store
-#жду код миши
 
 
 
