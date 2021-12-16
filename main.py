@@ -7,12 +7,18 @@ import time
 
 
 # парс с сайтов
-
 headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'}
 
 #Продуктовые
 #Вкусвилл
 def pars_vv():
+    '''
+        Данная функция парсит скидки с сайта vkusvill.ru, vkusvill_prod - массив для названий продуктов, vkusvill_html - массив для ссылок для данных товаров, vkusvill_old_price - массив для старых цен товаров, vkusvill_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     vkusvill_prod = []
     vkusvill_html = []
     vkusvill_old_price = []
@@ -40,9 +46,15 @@ def pars_vv():
         vkusvill_new_price.append(price_new)
 
     return vkusvill_prod, vkusvill_html, vkusvill_old_price,vkusvill_new_price
-
 #Перекресток
 def pars_perek():
+    '''
+        Данная функция парсит скидки с сайта perekrestok.ru, perek_prod - массив для названий продуктов, perek_html - массив для ссылок для данных товаров, perek_old_price - массив для старых цен товаров, perek_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     perek_prod = []
     perek_old_price = []
     perek_new_price = []
@@ -83,9 +95,15 @@ def pars_perek():
             perek_html.append(html)
         content_per3=content_per3[content_per3.find('<span')+4:]
     return perek_prod, perek_html, perek_old_price, perek_new_price
-
 #Магнолия
 def pars_mag():
+    '''
+        Данная функция парсит скидки с сайта shop.mgnl.ru, mag_prod - массив для названий продуктов, mag_html - массив для ссылок для данных товаров, mag_old_price - массив для старых цен товаров, mag_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     mag_prod = []
     mag_html = []
     mag_old_price = []
@@ -115,9 +133,15 @@ def pars_mag():
                 mag_new_price.append(check)
         content_mag2 = content_mag2[content_mag2.find('</span> ') + 8:]
     return mag_prod, mag_html, mag_old_price, mag_new_price
-
 #Метро
 def pars_metro():
+    '''
+        Данная функция парсит скидки с сайта msk.metro-cc.ru, metro_prod - массив для названий продуктов, metro_html - массив для ссылок для данных товаров, metro_old - массив для старых цен товаров, metro_new - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     metro_prod= []
     metro_html = []
     metro_old = []
@@ -160,9 +184,15 @@ def pars_metro():
             break
     return metro_prod, metro_html, metro_old, metro_new
 #Магазины одежды
-
 #НАЙК
 def pars_nike():
+    '''
+        Данная функция парсит скидки с сайта nike.com, nike_prod - массив для названий продуктов, nike_html - массив для ссылок для данных товаров, nike_old_price - массив для старых цен товаров, nike_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     nike_prod = []
     nike_html = []
     nike_old_price = []
@@ -189,8 +219,15 @@ def pars_nike():
         if counter==10:
             break
     return nike_prod, nike_html, nike_old_price, nike_new_price
-#ПУма
+#Пума
 def pars_puma():
+    '''
+        Данная функция парсит скидки с сайта ru.puma.com, puma_prod - массив для названий продуктов, puma_html - массив для ссылок для данных товаров, puma_old_price - массив для старых цен товаров, puma_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     puma_prod = []
     puma_html = []
     puma_old_price = []
@@ -224,6 +261,13 @@ def pars_puma():
     return puma_prod, puma_html, puma_old_price, puma_new_price
 #Ламода
 def pars_lamoda():
+    '''
+        Данная функция парсит скидки с сайта lamoda.ru, lamoda_prod - массив для названий продуктов, lamoda_html - массив для ссылок для данных товаров, lamoda_old_price - массив для старых цен товаров, lamoda_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     lamoda_prod = []
     lamoda_html = []
     lamoda_old_price = []
@@ -281,8 +325,15 @@ def pars_lamoda():
         content_lamoda1 = content_lamoda1[content_lamoda1.find('</span></div></a><div class="') + len('</span></div></a><div class="'):]
     return lamoda_prod, lamoda_html, lamoda_old_price, lamoda_new_price
 #Электроника
-#restore
+#Мвидео
 def pars_mvideo():
+    '''
+        Данная функция парсит скидки с сайта mvideo.ru, mvideo_prod - массив для названий продуктов, mvideo_html - массив для ссылок для данных товаров, mvideo_old_price - массив для старых цен товаров, mvideo_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     mvideo_prod = []
     mvideo_html = []
     mvideo_old_price = []
@@ -314,7 +365,15 @@ def pars_mvideo():
             counter-=1
         soup_mvideo=soup_mvideo[soup_mvideo.find('eventProductBrand')+len('eventProductBrand'):]
     return mvideo_prod, mvideo_html, mvideo_old_price, mvideo_new_price
+#re:Store
 def pars_restore():
+    '''
+        Данная функция парсит скидки с сайта re-store.ru, restore_prod - массив для названий продуктов, restore_html - массив для ссылок для данных товаров, restore_old_price - массив для старых цен товаров, restore_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     restore_prod = []
     restore_html = []
     restore_old_price = []
@@ -349,9 +408,15 @@ def pars_restore():
         content_restore1=content_restore1[content_restore1.find('</span>\n</div>')+len('</span>\n</div>'):]
     content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
     return restore_prod, restore_html, restore_old_price, restore_new_price
-
 #eldarado
 def pars_eladarado():
+    '''
+        Данная функция парсит скидки с сайта eldorado.ru, eladarado_prod - массив для названий продуктов, eladarado_html - массив для ссылок для данных товаров, eldarado_old_price - массив для старых цен товаров, eldarado_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     eladarado_prod = []
     eladarado_html = []
     eldarado_old_price = []
@@ -384,6 +449,13 @@ def pars_eladarado():
 #Аптека
 #36.6
 def pars_tts():
+    '''
+        Данная функция парсит скидки с сайта 366.ru, tts_prod - массив для названий продуктов, tts_html - массив для ссылок для данных товаров, tts_old_price - массив для старых цен товаров, tts_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     tts_prod = []
     tts_html = []
     tts_old_price = []
@@ -408,6 +480,13 @@ def pars_tts():
     return tts_prod, tts_html, tts_old_price, tts_new_price
 #asna
 def pars_asna():
+    '''
+        Данная функция парсит скидки с сайта ishimbaj.asna.ru, asna_prod - массив для названий продуктов, asna_html - массив для ссылок для данных товаров, asna_old_price - массив для старых цен товаров, asna_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     asna_prod = []
     asna_html = []
     asna_old_price = []
@@ -437,6 +516,13 @@ def pars_asna():
     return asna_prod, asna_html, asna_old_price, asna_new_price
 #Горздрав
 def pars_gor():
+    '''
+        Данная функция парсит скидки с сайта gorzdrav.org, gor_prod - массив для названий продуктов, gor_html - массив для ссылок для данных товаров, gor_old_price - массив для старых цен товаров, gor_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     gor_prod = []
     gor_html = []
     gor_old_price = []
@@ -473,9 +559,15 @@ def pars_gor():
         gor_html.append('https://gorzdrav.org'+article)
     return gor_prod, gor_html, gor_old_price, gor_new_price
 #Ювелирка
-
 #Cколково
 def pars_sokolov():
+    '''
+        Данная функция парсит скидки с сайта sokolov.ru, sokolov_prod - массив для названий продуктов, sokolov_html - массив для ссылок для данных товаров, sokolov_old_price - массив для старых цен товаров, sokolov_new_price - массив для новых цен товаров
+        Первый цикл отвечает за поиск: названия продукта и ссылки на данный продукт
+        Второй цикл отвечает за поиск: старой и новой цены
+        В функцию ничего не входит
+        Функция возвращает 4 массива с информацией о продукте, а именно название товара, ссылку на него, новую и старую цены
+    '''
     sokolov_prod = []
     sokolov_html = []
     sokolov_old_price = []
@@ -513,12 +605,14 @@ def pars_sokolov():
         content_sokolov1=content_sokolov1[content_sokolov1.find('<button aria-label=')+len('<button aria-label='):]
     return sokolov_prod, sokolov_html, sokolov_old_price, sokolov_new_price
 
-#Жду код от миши
 bot = telebot.TeleBot(config.token)
 
 
 @bot.message_handler(commands = ['start'], content_types=['text'])
 def welcome(message):
+    '''
+        Данная функция отвечает за отправку приветственного сообщения для пользователя, в котором он может выбрать тип магазина
+    '''
     markup = types.InlineKeyboardMarkup(row_width=1)
     item1 = types.InlineKeyboardButton('Продуктовые магазины', callback_data='food')
     item2 = types.InlineKeyboardButton('Магазины одежды',callback_data='clothes')
@@ -532,6 +626,9 @@ def welcome(message):
 
 @bot.callback_query_handler(func=lambda call:True)
 def reply(call):
+    '''
+        Данная функция отвечает за отправку сообщения с выбором магазина, с отправкой скидок товара из магазина выбранного пользователём и за отправку сообщения с повторным выбором типа магазина
+    '''
     try:
         if call.message :
             if call.data == 'food':
