@@ -286,7 +286,8 @@ while counter!=0:
         counter-=1
     content_restore1=content_restore1[content_restore1.find('</span>\n</div>')+len('</span>\n</div>'):]
 content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
-#ПИЗДА ТЕБЕ ЕБАНАЯ МВИДЕО
+
+#МВИДЕО
 mvideo_prod = []
 mvideo_html = []
 mvideo_old_price = []
@@ -300,19 +301,24 @@ while counter!=0:
         prod = soup_mvideo[soup_mvideo.find('<div class="fl-product-tile__picture-holder c-product-tile-picture__holder">'):soup_mvideo.find('"productCategoryId"')+len('"productCategoryId"')]
         html ='https://www.mvideo.ru/' + prod[prod.find('<a href="/')+len('<a href="/'):prod.find('" class="fl-product-tile-picture fl-product-tile')]
         mvideo_html.append(html)
-        price_new = prod[prod.find('"productPriceLocal":')+len('"productPriceLocal":'):prod.find('"productId":')]
-        print(price_new)
+        price_new = prod[prod.find('"productPriceLocal": "')+len('"productPriceLocal": "'):prod.find('"productId":')]
+        price_new = price_new[:price_new.find('",')].replace('\n\t','')
+        mvideo_new_price.append(price_new)
         prod=prod[prod.find('"productName": "')+len('"productName": "'):prod.find('"productCategoryId"')]
         prod=prod[:prod.find('",')]
         mvideo_prod.append(prod)
         counter -= 1
     soup_mvideo=soup_mvideo[soup_mvideo.find('"productCategoryId"')+len('"productCategoryId"'):]
 soup_mvideo=html_mvideo.content.decode()
-
 counter=10
 while counter!=0:
-    if soup_mvideo[soup_mvideo.find(''):soup_mvideo.find('')]:
+    if soup_mvideo[soup_mvideo.find('eventProductPrice')+len('eventProductPrice'):soup_mvideo.find('eventProductBrand')]:
+        price_old=soup_mvideo[soup_mvideo.find('eventProductPrice')+len('eventProductPrice'):soup_mvideo.find('eventProductBrand')]
+        price_old=price_old[price_old.find("': '")+len("': '"):price_old.find("',")]
+        mvideo_old_price.append(price_old)
         counter-=1
+    soup_mvideo=soup_mvideo[soup_mvideo.find('eventProductBrand')+len('eventProductBrand'):]
+
 #Ювелирка
 sokolov_prod = []
 sokolov_html = []
@@ -432,7 +438,11 @@ def reply(call):
             elif call.data == 'BER':
                 bot.send_message(chat_id=call.message.chat.id, text='ты чё бедный?')
             elif call.data == 'lama':
-                bot.send_message(chat_id=call.message.chat.id, text='ты чёбедный?')
+                bot.send_message(chat_id=call.message.chat.id, text='Скидки в Mvideo')
+                for i in range(len(lamoda_prod)):
+                    txt = str(lamoda_prod[i]) + '\n' + '⛔' + 'Старая цена:' + ' ' + '\u0336'.join(str(lamoda_old_price[i])) + '\u0336' + '\n' + '✅' + 'Новая цена:' + ' ' + str(lamoda_new_price[i]) + '\n' + '🌐' + 'Ссылка:' + ' ' + str(lamoda_html[i])
+                    bot.send_message(chat_id=call.message.chat.id, text=txt)
+                    time.sleep(0.5)
             elif call.data == 'kot':
                 bot.send_message(chat_id=call.message.chat.id, text='Скидки в Puma')
                 for i in range(len(puma_prod)):
@@ -446,21 +456,19 @@ def reply(call):
                     bot.send_message(chat_id=call.message.chat.id, text=txt)
                     time.sleep(0.5)
             elif call.data == 'MV':
-                bot.send_message(chat_id=call.message.chat.id, text='ты чё богатый?')
+                bot.send_message(chat_id=call.message.chat.id, text='Скидки в Mvideo')
+                for i in range(len(mvideo_prod)):
+                    txt = str(mvideo_prod[i]) + '\n' + '⛔' + 'Старая цена:' + ' ' + '\u0336'.join(str(mvideo_old_price[i])) + '\u0336' + '\n' + '✅' + 'Новая цена:' + ' ' + str(mvideo_new_price[i]) + '\n' + '🌐' + 'Ссылка:' + ' ' + str(mvideo_html[i])
+                    bot.send_message(chat_id=call.message.chat.id, text=txt)
+                    time.sleep(0.5)
             elif call.data == 'res':
-                bot.send_message(chat_id=call.message.chat.id, text='ты чё бедный?')
+                bot.send_message(chat_id=call.message.chat.id, text='Скидки в re:Store')
+                for i in range(len(restore_prod)):
+                    txt = str(restore_prod[i]) + '\n' + '⛔' + 'Старая цена:' + ' ' + '\u0336'.join(str(restore_old_price[i])) + '\u0336' + '\n' + '✅' + 'Новая цена:' + ' ' + str(restore_new_price[i]) + '\n' + '🌐' + 'Ссылка:' + ' ' + str(restore_html[i])
+                    bot.send_message(chat_id=call.message.chat.id, text=txt)
+                    time.sleep(0.5)
             elif call.data == 'DNS':
-                bot.send_message(chat_id=call.message.chat.id, text='ты чё богатый?')
-            elif call.data == 'Siti':
                 bot.send_message(chat_id=call.message.chat.id, text='ты чё бедный?')
-            elif call.data == 'bosh':
-                bot.send_message(chat_id=call.message.chat.id, text='ты чё не бедный не богатый?')
-            elif call.data == 'siem':
-                bot.send_message(chat_id=call.message.chat.id, text='чел тыююю?')
-            elif call.data == 'bork':
-                bot.send_message(chat_id=call.message.chat.id, text='чел тыююю?')
-            elif call.data == 'tyson':
-                bot.send_message(chat_id=call.message.chat.id, text='чел тыююю?')
             elif call.data == 'MUZ':
                 bot.send_message(chat_id=call.message.chat.id, text='ты чё  не бедный не богатый?')
             elif call.data == 'ADAM':
