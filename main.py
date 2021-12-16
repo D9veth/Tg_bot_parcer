@@ -113,7 +113,7 @@ def pars_mag():
     soup_mag = BeautifulSoup(html_mag, 'html.parser')
     content_mag1 = str(soup_mag.find_all('div', class_="ajax_load cur block"))
     content_mag2 = str(soup_mag.find_all('div', class_="ajax_load cur block"))
-    counter=9
+    counter=10
     while counter!=0:
         if content_mag1[content_mag1.find('<a class="dark_link option-font-bold font_sm" href='):content_mag1.find('</span>')]!='':
             check=content_mag1[content_mag1.find('<a class="dark_link option-font-bold font_sm" href='):content_mag1.find('</span>')]
