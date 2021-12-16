@@ -576,7 +576,6 @@ def reply(call):
                 markup.add(item1, item2, item3, item4, item5)
                 bot.send_message(chat_id = call.message.chat.id,text = 'Выберите категорию в которой мы будем искать вам скидки:'.format(call.message.from_user, bot.get_me()), reply_markup=markup)
 
-
     except Exception as e:
         print(repr(e))
 
