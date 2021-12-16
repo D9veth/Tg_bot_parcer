@@ -207,7 +207,85 @@ while counter!=0:
         counter-=1
     content_puma2=content_puma2[content_puma2.find('" data-price-type=')+18:]
 
-
+#ЛАМОДА
+lamoda_prod = []
+lamoda_html = []
+lamoda_old_price = []
+lamoda_new_price = []
+url_lamoda = 'https://www.lamoda.ru/c/4152/default-men/?display_locations=outlet&is_sale=1&zbs_content=outl_m_cats_769275_ru_2604_outlet_brands_m'
+html_lamoda = requests.get(url_lamoda).text
+soup_lamoda = BeautifulSoup(html_lamoda, 'html.parser')
+content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
+counter=10
+while counter!=0:
+    if content_lamoda1[content_lamoda1.find(',"price":"'):content_lamoda1.find('"}]')]!='':
+        price=content_lamoda1[content_lamoda1.find(',"price":"'):content_lamoda1.find('"}]')]
+        lamoda_new_price.append(price[price.find(':"')+2:])
+        counter-=1
+    content_lamoda1=content_lamoda1[content_lamoda1.find('"}]')+3:]
+counter=10
+content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
+while counter!=0:
+    if content_lamoda1[content_lamoda1.find('data-price-origin="'):content_lamoda1.find('" data-season=')]!='':
+        price=content_lamoda1[content_lamoda1.find('data-price-origin="'):content_lamoda1.find('" data-season=')]
+        lamoda_old_price.append(price[price.find('="')+2:])
+        counter-=1
+    content_lamoda1=content_lamoda1[content_lamoda1.find('" data-season=')+len('" data-season='):]
+counter=10
+content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
+while counter!=0:
+    if content_lamoda1[content_lamoda1.find('href="'):content_lamoda1.find('/">')+1]!='':
+        price=content_lamoda1[content_lamoda1.find('href="'):content_lamoda1.find('/">')+1]
+        lamoda_html.append('https://www.lamoda.ru/'+price[7:])
+        counter-=1
+    content_lamoda1=content_lamoda1[content_lamoda1.find('/">')+len('/">'):]
+counter=10
+content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
+while counter!=0:
+    if content_lamoda1[content_lamoda1.find('products-list-item__brand">'):content_lamoda1.find('</span></div></a>')]!='':
+        price=content_lamoda1[content_lamoda1.find('products-list-item__brand">'):content_lamoda1.find('</span></div></a>')]
+        price=price.replace('\n','')
+        price = price.replace('\t', '')
+        price = price.replace(' ', '',16)
+        price=(price[price.find('d">')+len('d">'):price.find('<span')]+'/'+price[price.find('e">') + len('e">'):]).replace(' ','',35)
+        lamoda_prod.append(price)
+        counter-=1
+    content_lamoda1=content_lamoda1[content_lamoda1.find('</span></div></a>')+len('</span></div></a>'):]
+#Электроника
+#restore
+restore_prod = []
+restore_html = []
+restore_old_price = []
+restore_new_price = []
+url_restore = 'https://re-store.ru/sale/'
+html_restore = requests.get(url_restore).text
+soup_restore = BeautifulSoup(html_restore, 'html.parser')
+content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
+counter=12
+while counter!=0:
+    if content_restore1[content_restore1.find('<a class="catalog-item__link" href="'):content_restore1.find('"></a>')]!='':
+        html=content_restore1[content_restore1.find('<a class="catalog-item__link" href="'):content_restore1.find('"></a>')]
+        restore_html.append(('https://re-store.ru/'+str(html[html.find('f="')+4:])))
+        counter-=1
+    content_restore1=content_restore1[content_restore1.find('"></a>')+len('"></a>'):]
+content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
+counter=12
+while counter!=0:
+    if content_restore1[content_restore1.find('class="actual-price')+len('class="actual-price'):content_restore1.find('<link href="')]!='':
+        price=content_restore1[content_restore1.find('class="actual-price'):content_restore1.find('<link href="')].replace('\xa0',' ')
+        restore_new_price.append(price[price.find('itemprop="price">')+len('itemprop="price">'):price.find('</span>')])
+        restore_old_price.append(price[price.find('catalog__item-price--old">')+len('catalog__item-price--old">'):price.find(' ₽</span>')])
+        counter-=1
+    content_restore1=content_restore1[content_restore1.find('<link href="')+len('<link href="'):]
+content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
+counter=12
+while counter!=0:
+    if content_restore1[content_restore1.find('class="clamp catalog__item-title">'):content_restore1.find('</span>\n</div>')]!='':
+        prod=content_restore1[content_restore1.find('class="clamp catalog__item-title">')+len('class="clamp catalog__item-title">'):content_restore1.find('</span>\n</div>')]
+        restore_prod.append(prod)
+        counter-=1
+    content_restore1=content_restore1[content_restore1.find('</span>\n</div>')+len('</span>\n</div>'):]
+content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
 #ПИЗДА ТЕБЕ ЕБАНАЯ МВИДЕО
 mvideo_prod = []
 mvideo_html = []
