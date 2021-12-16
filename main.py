@@ -290,11 +290,34 @@ while counter!=0:
 content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
 
 
-
-
-#re:store
-#жду код миши
-
+#eldarado
+eladarado_prod = []
+eladarado_html = []
+eldarado_old_price = []
+eldarado_new_price = []
+url_eldarado = 'https://www.eldorado.ru/promo/prm-newyear-sale/?from=hub'
+html_eldarado = requests.get(url_eldarado, headers=headers)
+soup_eldarado = html_eldarado.content.decode('windows-1251')
+counter = 0
+while counter!=11:
+    item = soup_eldarado[soup_eldarado.find('<a class="def-product__name" href=')+len('<a class="def-product__name" href='):soup_eldarado.find('                      </div> -->')]
+    href = (item[:item.find(' title')])
+    href = 'https://www.eldorado.ru'+href[1:len(href)-1]
+    old_price = item[item.find('<span class="def-product__old-price-text">')+len('<span class="def-product__old-price-text">'):item.find('<span class="rubl">')]
+    old_price = old_price.replace('&nbsp;','')
+    new_price = item[item.find(' data-new-price=')+len(' data-new-price='):item.find(' >- 600<')]
+    new_price = new_price.replace('&nbsp;','').replace('"','')
+    name = item[item.find(' target="_blank">')+len(' target="_blank">'):item.find('</a>')]
+    eladarado_prod.append(name)
+    eladarado_html.append(href)
+    eldarado_old_price.append(old_price)
+    eldarado_new_price.append(new_price)
+    counter+=1
+    soup_eldarado = soup_eldarado[soup_eldarado.find('                        <li class="def-product"')+len('                        <li class="def-product"'):]
+eladarado_prod = eladarado_prod[1:]
+eladarado_html = eladarado_html[1:]
+eldarado_new_price = eldarado_new_price[1:]
+eldarado_old_price = eldarado_old_price[1:]
 
 
 #Аптека
@@ -386,6 +409,14 @@ for article in content_gor4:
 
 #Ювелирка
 
+gor_prod = []
+gor_html = []
+gor_old_price = []
+gor_new_price = []
+url_gor = 'https://poisondrop.ru/catalog/sale/'
+html_gor = requests.get(url_gor).text
+soup_gor = BeautifulSoup(html_gor, 'html.parser')
+
 #Cколково
 #Жду код от миши
 bot = telebot.TeleBot(config.token)
@@ -430,8 +461,8 @@ def reply(call):
                 markup = types.InlineKeyboardMarkup(row_width=1)
                 item1 = types.InlineKeyboardButton('МВидео', callback_data='MV')
                 item4 = types.InlineKeyboardButton('re:Store', callback_data='res')
-
-                markup.add(item1, item4)
+                item2 = types.InlineKeyboardButton('Eldorado', callback_data='old')
+                markup.add(item1, item4, item2)
                 bot.send_message(chat_id=call.message.chat.id, text='Выберете магазин:', reply_markup=markup)
             elif call.data == 'jewellery':
                 markup = types.InlineKeyboardMarkup(row_width=1)
@@ -560,6 +591,15 @@ def reply(call):
             elif call.data == 'res':
                 for i in range(len(restore_prod)):
                     txt = str(restore_prod[i]) + '\n' + '⛔' + 'Старая цена:' + ' ' + '\u0336'.join(str(restore_old_price[i])) + '\u0336' + '\n' + '✅' + 'Новая цена:' + ' ' + str(restore_new_price[i]) + '\n' + '🌐' + 'Ссылка:' + ' ' + str(restore_html[i])
+                    bot.send_message(chat_id=call.message.chat.id, text=txt)
+                    time.sleep(0.5)
+                markup = types.InlineKeyboardMarkup(row_width=1)
+                item1 = types.InlineKeyboardButton('Хочу ещё!', callback_data='/restart')
+                markup.add(item1)
+                bot.send_message(chat_id=call.message.chat.id, text='Хотите больше скидок?', reply_markup=markup)
+            elif call.data == 'old':
+                for i in range(len(eladarado_prod)):
+                    txt = str(eladarado_prod[i]) + '\n' + '⛔' + 'Старая цена:' + ' ' + '\u0336'.join(str(eldarado_old_price[i])) + '\u0336' + '\n' + '✅' + 'Новая цена:' + ' ' + str(eldarado_new_price[i]) + '\n' + '🌐' + 'Ссылка:' + ' ' + str(eladarado_html[i])
                     bot.send_message(chat_id=call.message.chat.id, text=txt)
                     time.sleep(0.5)
                 markup = types.InlineKeyboardMarkup(row_width=1)
