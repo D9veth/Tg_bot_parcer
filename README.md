@@ -16,4 +16,4 @@
   
 Запускаем
 
-    4)python3 bot.py
+    4)python3 main.py
