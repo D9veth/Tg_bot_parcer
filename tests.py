@@ -8,8 +8,8 @@ import main_pars
 from main_pars import pars_vv,pars_gor,pars_tts,pars_asna,pars_mag,pars_puma,pars_metro,pars_perek,pars_mvideo,pars_nike,pars_lamoda,pars_sokolov,pars_eladarado,pars_restore
 headers = {'User-Agent': 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'}
 # Введите ваши API ID, hash and session name
-api_id = int('17788181')
-api_hash = "29d66437042a0f576c7d7a1854c3d4e2"
+api_id = int('')
+api_hash = ""
 client = TelegramClient('Михаил', api_id, api_hash)
 
 
@@ -248,7 +248,7 @@ class Test(unittest.TestCase):
             for message in client.get_messages('@post_project_bot', limit=1):
                 m = message.message
             self.assertEqual(len(messages), 1)
-            text = 'Добро пожаловать,Михаил!\nЗдесь вы можете узнать, наиболее продоваемые товары, товары со скидками'
+            text = 'Добро пожаловать,(ИМЯ ПОЛЬЗОВАТЕЛЯ)\nЗдесь вы можете узнать, наиболее продоваемые товары, товары со скидками'
             self.assertRegex(m, text)
         except:
             self.assertFalse(True)
