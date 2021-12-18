@@ -19,15 +19,18 @@ def pars_vv():
     vkusvill_old_price = []
     vkusvill_new_price = []
     url_vv = 'https://vkusvill.ru/bonuses/'# Делаю парс из магазина Вкусвилл
-    html_vv = requests.get(url_vv).text
-    soup_vv = BeautifulSoup(html_vv, 'html.parser')
+    html_vv = requests.get(url_vv)
+    if type(html_vv)==str:
+        soup_vv = BeautifulSoup(html_vv, 'html.parser')
+    else:
+        soup_vv = BeautifulSoup(html_vv.text, 'html.parser')
 
     content_vv1 = soup_vv.find_all('div', class_="ProductCard__content")
     content_vv2 = soup_vv.find_all('div', class_="ProductCard__price")
 
     for article in content_vv1:
         tovar = article.find('a', class_='ProductCard__link js-datalayer-catalog-list-name').get('title')
-        vkusvill_prod.append(tovar)
+        vkusvill_prod.append(str(tovar).replace('\xa0',''))
         html = 'https://vkusvill.ru' + article.find('a', class_='ProductCard__link js-datalayer-catalog-list-name').get('href')
         vkusvill_html.append(html)
     for article in content_vv2:
@@ -55,8 +58,11 @@ def pars_perek():
     perek_new_price = []
     perek_html=[]
     url_per = 'https://www.perekrestok.ru/cat/d?orderBy=popularity&orderDirection=desc'
-    html_per = requests.get(url_per).text
-    soup_per = BeautifulSoup(html_per, 'html.parser')
+    html_per = requests.get(url_per)
+    if type(html_per)==str:
+        soup_per = BeautifulSoup(html_per, 'html.parser')
+    else:
+        soup_per = BeautifulSoup(html_per.text, 'html.parser')
     counter=0
     content_per1 = soup_per.find_all('div', class_="product-card-title__wrapper")
     content_per2 = soup_per.find_all('div', class_='product-card__control')
@@ -104,8 +110,11 @@ def pars_mag():
     mag_old_price = []
     mag_new_price = []
     url_mag = 'https://shop.mgnl.ru/catalog/super-aktsiya-skidka-50/'
-    html_mag = requests.get(url_mag).text
-    soup_mag = BeautifulSoup(html_mag, 'html.parser')
+    html_mag = requests.get(url_mag)
+    if type(html_mag)==str:
+        soup_mag = BeautifulSoup(html_mag, 'html.parser')
+    else:
+        soup_mag = BeautifulSoup(html_mag.text, 'html.parser')
     content_mag1 = str(soup_mag.find_all('div', class_="ajax_load cur block"))
     content_mag2 = str(soup_mag.find_all('div', class_="ajax_load cur block"))
     counter=10
@@ -143,7 +152,10 @@ def pars_metro():
     metro_new = []
     url_mag = 'https://msk.metro-cc.ru/virtual/tovary_nedeli?itm_pm=ru%3Ancp%3Actr%3Ait%3A11%3A4&_ga=2.148296562.497639215.1638262985-825064516.1638262985'
     html_mag = requests.get(url_mag)
-    soup_mag = BeautifulSoup(html_mag.text, 'lxml')
+    if type(html_mag)==str:
+        soup_mag = BeautifulSoup(html_mag, 'html.parser')
+    else:
+        soup_mag = BeautifulSoup(html_mag.text, 'html.parser')
     content_mag1 = soup_mag.find_all('div', class_='catalog-item')
     counter=0
     for article in content_mag1:
@@ -193,8 +205,11 @@ def pars_nike():
     nike_old_price = []
     nike_new_price = []
     url_nike = 'https://www.nike.com/ru/w/sale-3yaep'
-    html_nike = requests.get(url_nike).text
-    soup_nike = BeautifulSoup(html_nike, 'html.parser')
+    html_nike = requests.get(url_nike)
+    if type(html_nike)==str:
+        soup_nike = BeautifulSoup(html_nike, 'html.parser')
+    else:
+        soup_nike = BeautifulSoup(html_nike.text, 'html.parser')
     content_nike1 = soup_nike.find_all('div', class_="product-card__body")
     counter=0
     for article in content_nike1:
@@ -228,8 +243,11 @@ def pars_puma():
     puma_old_price = []
     puma_new_price = []
     url_puma = 'https://ru.puma.com/skidki.html'
-    html_puma = requests.get(url_puma).text
-    soup_puma = BeautifulSoup(html_puma, 'html.parser')
+    html_puma = requests.get(url_puma)
+    if type(html_puma)==str:
+        soup_puma = BeautifulSoup(html_puma, 'html.parser')
+    else:
+        soup_puma = BeautifulSoup(html_puma.text, 'html.parser')
     content_puma1 = str(soup_puma.find_all('div', class_="grid"))
     content_puma2 = str(soup_puma.find_all('div', class_="product-item__details"))
     counter=10
@@ -268,8 +286,11 @@ def pars_lamoda():
     lamoda_old_price = []
     lamoda_new_price = []
     url_lamoda = 'https://www.lamoda.ru/c/4152/default-men/?display_locations=outlet&is_sale=1&zbs_content=outl_m_cats_769275_ru_2604_outlet_brands_m'
-    html_lamoda = requests.get(url_lamoda).text
-    soup_lamoda = BeautifulSoup(html_lamoda, 'html.parser')
+    html_lamoda = requests.get(url_lamoda)
+    if type(html_lamoda)==str:
+        soup_lamoda = BeautifulSoup(html_lamoda, 'html.parser')
+    else:
+        soup_lamoda = BeautifulSoup(html_lamoda.text, 'html.parser')
     content_lamoda1 = str(soup_lamoda.find_all('div', class_="products-catalog__list"))
     counter = 10
     while counter != 0:
@@ -335,7 +356,12 @@ def pars_mvideo():
     mvideo_new_price = []
     url_mvideo = 'https://www.mvideo.ru/promo/komputery-i-noutbuki-mark188276424'
     html_mvideo = requests.get(url_mvideo, headers=headers)
-    soup_mvideo=html_mvideo.content.decode()
+    if type(html_mvideo)==str:
+        soup_mvideo = html_mvideo
+        soup_mvideo2=html_mvideo
+    else:
+        soup_mvideo = html_mvideo.content.decode()
+        soup_mvideo2 = html_mvideo.content.decode()
     counter=10
     while counter!=0:
         if soup_mvideo[soup_mvideo.find('<div class="fl-product-tile__picture-holder c-product-tile-picture__holder">'):soup_mvideo.find('"productCategoryId"')+len('"productCategoryId"')] != '':
@@ -350,7 +376,7 @@ def pars_mvideo():
             mvideo_prod.append(prod)
             counter -= 1
         soup_mvideo=soup_mvideo[soup_mvideo.find('"productCategoryId"')+len('"productCategoryId"'):]
-    soup_mvideo=html_mvideo.content.decode()
+    soup_mvideo=soup_mvideo2
     counter=10
     while counter!=0:
         if soup_mvideo[soup_mvideo.find('eventProductPrice')+len('eventProductPrice'):soup_mvideo.find('eventProductBrand')]:
@@ -374,8 +400,11 @@ def pars_restore():
     restore_old_price = []
     restore_new_price = []
     url_restore = 'https://re-store.ru/sale/'
-    html_restore = requests.get(url_restore).text
-    soup_restore = BeautifulSoup(html_restore, 'html.parser')
+    html_restore = requests.get(url_restore)
+    if type(html_restore)==str:
+        soup_restore = BeautifulSoup(html_restore, 'html.parser')
+    else:
+        soup_restore = BeautifulSoup(html_restore.text, 'html.parser')
     content_restore1 = str(soup_restore.find_all('div', class_="catalog-items by-tile catalog__items"))
     counter=12
     while counter!=0:
@@ -418,7 +447,10 @@ def pars_eladarado():
     eldarado_new_price = []
     url_eldarado = 'https://www.eldorado.ru/promo/prm-newyear-sale/?from=hub'
     html_eldarado = requests.get(url_eldarado, headers=headers)
-    soup_eldarado = html_eldarado.content.decode('windows-1251')
+    if type(html_eldarado)==str:
+        soup_eldarado = html_eldarado
+    else:
+        soup_eldarado = html_eldarado.content.decode('windows-1251')
     counter = 0
     while counter!=11:
         item = soup_eldarado[soup_eldarado.find('<a class="def-product__name" href=')+len('<a class="def-product__name" href='):soup_eldarado.find('                      </div> -->')]
@@ -456,8 +488,11 @@ def pars_tts():
     tts_old_price = []
     tts_new_price = []
     url_tts = 'https://366.ru/c/wow-cena/'
-    html_tts = requests.get(url_tts).text
-    soup_tts = BeautifulSoup(html_tts, 'html.parser')
+    html_tts = requests.get(url_tts)
+    if type(html_tts)==str:
+        soup_tts = BeautifulSoup(html_tts, 'html.parser')
+    else:
+        soup_tts = BeautifulSoup(html_tts.text, 'html.parser')
     content_tts = str(soup_tts.find_all('div', class_="js-product-list-wrapper js-product-list-ave"))
     counter = 0
     while counter!=20:
@@ -487,8 +522,11 @@ def pars_asna():
     asna_old_price = []
     asna_new_price = []
     url_asna = 'https://ishimbaj.asna.ru/sales/actions/'
-    html_asna = requests.get(url_asna).text
-    soup_asna = BeautifulSoup(html_asna, 'html.parser')
+    html_asna = requests.get(url_asna)
+    if type(html_asna)==str:
+        soup_asna = BeautifulSoup(html_asna, 'html.parser')
+    else:
+        soup_asna = BeautifulSoup(html_asna.text, 'html.parser')
     content_asna1 = soup_asna.find_all('a', class_="product_name__VzTPG")
     content_asna2 = soup_asna.find_all('span', class_="catalogPrice_price__TRAFl")
     content_asna3 = soup_asna.find_all('span',class_='Tooltip_root__ft_kM')
@@ -523,8 +561,11 @@ def pars_gor():
     gor_old_price = []
     gor_new_price = []
     url_gor = 'https://gorzdrav.org/category/skidka-do-15/'
-    html_gor = requests.get(url_gor).text
-    soup_gor = BeautifulSoup(html_gor, 'html.parser')
+    html_gor = requests.get(url_gor)
+    if type(html_gor)==str:
+        soup_gor = BeautifulSoup(html_gor, 'html.parser')
+    else:
+        soup_gor = BeautifulSoup(html_gor.text, 'html.parser')
     content_gor1 = soup_gor.find_all('div', class_='c-prod-item__title')
     content_gor2 = soup_gor.find_all('span', class_='b-price b-price--last')
     content_gor3 = soup_gor.find_all('span', class_='b-price b-price--discount')
@@ -568,8 +609,11 @@ def pars_sokolov():
     sokolov_old_price = []
     sokolov_new_price = []
     url_sokolov = 'https://sokolov.ru/jewelry-catalog/sale50/sale60/sale70/'
-    html_sokolov = requests.get(url_sokolov).text
-    soup_sokolov = BeautifulSoup(html_sokolov, 'html.parser')
+    html_sokolov = requests.get(url_sokolov)
+    if type(html_sokolov)==str:
+        soup_sokolov = BeautifulSoup(html_sokolov, 'html.parser')
+    else:
+        soup_sokolov = BeautifulSoup(html_sokolov.text, 'html.parser')
     content_sokolov1 = str(soup_sokolov.find_all('div', class_="list"))
     counter=10
     while counter!=0:
