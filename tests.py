@@ -17,20 +17,13 @@ client = TelegramClient('', api_id, api_hash)
 client.start()
 
 class Test(unittest.TestCase):
-    def test_vv(self):
+    @patch('requests.get', return_value=(Path('data/vv.html').read_text('utf-8')))
+    def test_vv(self,html_vv):
         a,b,c,d = pars_vv()
         self.assertEqual(len(a),len(b))
-    def test_vv2(self):
-        a,b,c,d = pars_vv()
         self.assertEqual(len(c),len(d))
-    def test_vv3(self):
-        a,b,c,d = pars_vv()
         self.assertEqual(len(b),len(c))
-    @patch('requests.get',return_value=(Path('data/vv.html').read_text('utf-8')))
-    def test_vv4(self,html_vv):
         self.assertEqual(pars_vv()[2][0],'52')
-    @patch('requests.get', return_value=(Path('data/vv.html').read_text('utf-8')))
-    def test_vv5(self,html_vv):
         self.assertEqual(pars_vv()[3][0],'40')
 
     def test_per(self):
@@ -249,7 +242,7 @@ class Test(unittest.TestCase):
             for message in client.get_messages('@post_project_bot', limit=1):
                 m = message.message
             self.assertEqual(len(messages), 1)
-            text = 'Добро пожаловать,(СВОЕ ИМЯ)\nЗдесь вы можете узнать, наиболее продоваемые товары, товары со скидками'
+            text = 'Добро пожаловать,Михаил!\nЗдесь вы можете узнать, наиболее продоваемые товары, товары со скидками'
             self.assertRegex(m, text)
         except:
             self.assertFalse(True)
